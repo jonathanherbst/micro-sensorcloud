@@ -1,0 +1,70 @@
+project 
+:   requirements <cxxflags>-std=c++11 <include>. 
+:   build-dir build
+;
+
+path-constant ROOT : . ;
+path-constant STAGE_DIR : stage ;
+
+lib boost_system ;
+lib pthread ;
+lib ssl ;
+lib crypto ;
+
+lib xdr
+:   xdr/xdr.c
+:   <link>static
+;
+
+lib buffer
+:   buffer/buffer.c
+    buffer/buffer_sequence.c
+:   <link>static
+;
+
+lib http
+:	http/request.c
+    http/response.c
+	detail/algorithm.c
+    xdr
+    buffer
+:	<link>static
+;
+
+lib sensorcloud
+:   sensorcloud.c
+:   <link>static
+;
+
+lib esp8266_driver
+:   net/esp8266_driver.c
+:   <link>static
+;
+
+exe google_http_get
+:   asio_google_get.cpp
+    net/asio_driver.cpp
+    http
+    boost_system
+    pthread
+    ssl
+    crypto
+;
+
+exe one_hz_sensor
+:   one_hz_sensor.cpp
+    net/asio_driver.cpp
+    sensorcloud
+    http
+    boost_system
+    pthread
+    ssl
+    crypto
+;
+
+exe http_test
+:	http_test.c
+	http
+;
+
+explicit http_test ;

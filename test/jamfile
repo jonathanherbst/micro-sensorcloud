@@ -1,0 +1,12 @@
+import testing ;
+
+lib boost_unit_test_framework ;
+
+unit-test unit_tests
+:   runner.cpp
+    http_parsing_test.cpp
+    http_buffer_test.cpp
+    buffer/buffer_sequence_test.cpp
+    detail/algorithm_test.cpp
+    ..//http
+;

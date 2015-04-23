@@ -1,0 +1,6 @@
+bin
+build
+stage
+app
+*.pyc
+*.swp
